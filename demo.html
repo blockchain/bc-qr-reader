@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="uploadQR">
+  <head>
+    <meta charset="utf-8">
+    <title> QR Upload </title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="js/ctrl.js"></script>
+    <script src="bower_components/webcam-directive/app/scripts/webcam.js"></script>
+    <script src="dist/bc-qr-reader.js"></script>  
+  </head>
+  <body ng-controller="Webcam">
+    <button>Upload QR code</button>
+    <div>
+      <bc-qr-reader active="cameraRequested" on-result="processURLfromQR" on-error="onError" camera-status="cameraIsOn" width="200px" height="200px"></bc-qr-reader>
+    </div>
+  </body>
+</html>

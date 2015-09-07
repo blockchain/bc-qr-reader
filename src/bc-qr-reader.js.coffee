@@ -1,4 +1,5 @@
-walletApp.directive('bcQrReader', ($timeout) ->
+angular.module('bcQrReader', [])
+.directive('bcQrReader', ($timeout) ->
   {
     restrict: "E"
     replace: 'true'

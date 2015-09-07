@@ -10,9 +10,9 @@
   ],
   "license": "",
   "private": false,
-  "repository" : {
-    "type" : "git",
-    "url" : "git://github.com/blockchain/bc-qr-reader.git"
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/blockchain/bc-qr-reader.git"
   },
   "ignore": [
     "**/.*",
@@ -23,7 +23,8 @@
   ],
   "scripts": {},
   "dependencies": {
-    "webcam-directive": "~3.0.0"
+    "webcam-directive": "~3.0.0",
+    "angular": "~1.4.4"
   },
   "devDependencies": {}
 }

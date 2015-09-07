@@ -3801,56 +3801,56 @@ function QRCodeDataBlockReader(blocks,  version,  numErrorCorrectionCode)
 					while (true);
 		return output;
 	});
-}
-;walletApp.directive('bcQrReader', function($timeout) {
-  return {
-    restrict: "E",
-    replace: 'true',
-    scope: {
-      onResult: '=',
-      onError: '=',
-      active: '=',
-      cameraStatus: '='
-    },
-    template: '<div><webcam on-stream="onStream(stream)" on-error="onError(err)" ng-if="active" channel="channel"></webcam><canvas id="qr-canvas"></canvas></div>',
-    link: function(scope, elem, attrs) {
-      scope.channel = {};
-      scope.onError = function(error) {
-        console.log("Error!");
-        return console.log(error);
-      };
-      scope.onStream = function(stream) {
-        var canvas;
-        canvas = document.getElementById("qr-canvas");
-        scope.qrStream = stream;
-        scope.lookForQR();
-        return scope.cameraStatus = true;
-      };
-      return scope.lookForQR = function() {
-        var canvas, e, res, video;
-        canvas = document.getElementById("qr-canvas");
-        video = document.getElementsByTagName("video")[0];
-        if ((video != null) && video.videoWidth > 0) {
-          canvas.width = video.videoWidth;
-          canvas.height = video.videoHeight;
-          canvas.getContext("2d").drawImage(video, 0, 0);
-        }
-        res = void 0;
-        try {
-          res = qrcode.decode();
-        } catch (_error) {
-          e = _error;
-          $timeout((function() {
-            return scope.lookForQR();
-          }), 250);
-        }
-        if (res != null) {
-          scope.onResult(res);
-          return canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
-        }
-      };
-    }
-  };
-});
-
+};
+angular.module('bcQrReader', [])
+	.directive('bcQrReader', function($timeout) {
+	  return {
+	    restrict: "E",
+	    replace: 'true',
+	    scope: {
+	      onResult: '=',
+	      onError: '=',
+	      active: '=',
+	      cameraStatus: '='
+	    },
+	    template: '<div><webcam on-stream="onStream(stream)" on-error="onError(err)" ng-if="active" channel="channel"></webcam><canvas id="qr-canvas"></canvas></div>',
+	    link: function(scope, elem, attrs) {
+	      scope.channel = {};
+	      scope.onError = function(error) {
+	        console.log("Error!");
+	        return console.log(error);
+	      };
+	      scope.onStream = function(stream) {
+	        var canvas;
+	        canvas = document.getElementById("qr-canvas");
+	        scope.qrStream = stream;
+	        scope.lookForQR();
+	        return scope.cameraStatus = true;
+	      };
+	      return scope.lookForQR = function() {
+	        var canvas, e, res, video;
+	        canvas = document.getElementById("qr-canvas");
+	        video = document.getElementsByTagName("video")[0];
+	        if ((video != null) && video.videoWidth > 0) {
+	          canvas.width = video.videoWidth;
+	          canvas.height = video.videoHeight;
+	          canvas.getContext("2d").drawImage(video, 0, 0);
+	        }
+	        res = void 0;
+	        try {
+	          res = qrcode.decode();
+	        } catch (_error) {
+	          e = _error;
+	          $timeout((function() {
+	            return scope.lookForQR();
+	          }), 250);
+	        }
+	        if (res != null) {
+	          scope.onResult(res);
+	          return canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+	        }
+	      };
+	    }
+	  };
+	});
 })()
