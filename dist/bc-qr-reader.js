@@ -3856,6 +3856,6 @@ bcQrReader = function($timeout) {
   };
 };
 
-angular.module('bcQrReader', []).directive('bcQrReader', bcQrReader);
+angular.module('bcQrReader', []).directive('bcQrReader', ['$timeout', bcQrReader]);
 
 })()
