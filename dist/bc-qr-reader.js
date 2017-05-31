@@ -3815,6 +3815,13 @@ bcQrReader = function($timeout) {
       cameraStatus: '='
     },
     template: '<div><webcam on-stream="onStream(stream)" on-error="onError(err)" ng-if="active" channel="channel"></webcam><canvas id="qr-canvas"></canvas></div>',
+    controller: function(scope, elem, attrs) {
+      return scope.$watch('active', function(newVal) {
+        if (newVal === false && scope.qrStream) {
+          scope.qrStream.getTracks()[0].stop();
+        }
+      });
+    },
     link: function(scope, elem, attrs) {
       scope.channel = {};
       if (!scope.onError) {
@@ -3856,6 +3863,6 @@ bcQrReader = function($timeout) {
   };
 };
 
-angular.module('bcQrReader', []).directive('bcQrReader', bcQrReader);
+angular.module('bcQrReader', []).directive('bcQrReader', ['$timeout', bcQrReader]);
 
 })()
