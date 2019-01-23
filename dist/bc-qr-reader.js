@@ -3858,4 +3858,4 @@ bcQrReader = function($timeout) {
 
 angular.module('bcQrReader', []).directive('bcQrReader', bcQrReader);
 
-})()
+})();
