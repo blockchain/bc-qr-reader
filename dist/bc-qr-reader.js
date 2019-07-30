@@ -3812,7 +3812,9 @@ bcQrReader = function($timeout) {
       onResult: '=',
       onError: '=',
       active: '=',
-      cameraStatus: '='
+      cameraStatus: '=',
+	  qrStream:'=',
+	  checkFrequency:'@'
     },
     template: '<div><webcam on-stream="onStream(stream)" on-error="onError(err)" ng-if="active" channel="channel"></webcam><canvas id="qr-canvas"></canvas></div>',
     link: function(scope, elem, attrs) {
@@ -3832,7 +3834,8 @@ bcQrReader = function($timeout) {
       return scope.lookForQR = function() {
         var canvas, e, res, video;
         canvas = document.getElementById("qr-canvas");
-        video = document.getElementsByTagName("video")[0];
+				video = document.getElementsByTagName("video")[0];
+				if(!video)return;
         if ((video != null) && video.videoWidth > 0) {
           canvas.width = video.videoWidth;
           canvas.height = video.videoHeight;
@@ -3845,7 +3848,7 @@ bcQrReader = function($timeout) {
           e = _error;
           $timeout((function() {
             return scope.lookForQR();
-          }), 250);
+          }), scope.checkFrequency || 250);
         }
         if (res != null) {
           scope.onResult(res);
